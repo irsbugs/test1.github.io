@@ -2,8 +2,8 @@ name: Creator 1
 # Check if folder and files created in src
 
 on: 
-  push:
-    branches: [ "src" ]
+  #push:
+  #  branches: [ "src" ]
   #branches: branches is unknown
   #    - src
   # Run this workflow manually from the Actions tab
