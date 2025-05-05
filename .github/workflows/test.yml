@@ -1,0 +1,57 @@
+name: Creator 1
+# Check if folder and files created in src
+
+on: # [push]
+  #branches: branches is unknown
+  #    - src
+
+  # Run this workflow manually from the Actions tab
+  workflow_dispatch:
+      
+jobs:
+  build:
+    permissions: write-all
+
+
+    runs-on: ubuntu-latest
+    
+    steps:
+          
+      - name: Actions Checkout v4
+        uses: actions/checkout@v4
+        #with:
+        #  base: main TODO run in src
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          #  ['python-version', 'python-version-file', 'cache', 'architecture', 'check-latest', 'token', 
+          #   'cache-dependency-path', 'update-environment', 'allow-prereleases', 'freethreaded']
+          #dry_run: false <-- Warning: Unexpected input(s) 'dry_run'
+      - name: Python-3 multi-line code
+        shell: python
+        run: |
+          import os
+          import sys
+          import subprocess
+
+          print('Current Working Directory 1:', os.getcwd())
+          
+          folder_list = ["testa", "testb",]          
+          for folder in folder_list:
+              os.makedirs(folder, exist_ok=True)
+
+              file_list = ["testfile1", "testfile2",]
+              for file in file_list:
+                  if not os.path.exists(folder + "/" + file):
+                      os.mknod(folder + "/" + file)
+              
+          subprocess.run('''
+              # Git instructions - performed by bash
+              git config user.name "irsbugs"
+              git config user.email "irsbugs@hotmail.com"          
+              git add .
+              git commit -m "generated"
+              git push''',
+              shell=True, check=True, executable='/bin/bash')
+          
